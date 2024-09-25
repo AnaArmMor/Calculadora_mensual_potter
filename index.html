@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Presupuesto Mensual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Presupuesto Mensual</h1>
+        <div class="input-group">
+            <label for="income">Ingresos mensuales totales:</label>
+            <input type="number" id="income" placeholder="Ingrese sus ingresos">
+        </div>
+        <div class="input-group">
+            <label for="expenses">Gastos mensuales totales:</label>
+            <input type="number" id="expenses" placeholder="Ingrese sus gastos">
+        </div>
+        <div class="input-group">
+            <label for="savings">Ahorros viaje sonado:</label>
+            <input type="number" id="savings" placeholder="Ingrese sus ahorros">
+        </div>
+        <div class="result">
+            <h2>Resumen:</h2>
+            <div id="summary"></div>
+        </div>
+    </div>
+    <script>
+        const incomeInput = document.getElementById('income');
+        const expensesInput = document.getElementById('expenses');
+        const savingsInput = document.getElementById('savings');
+        const summaryDisplay = document.getElementById('summary');
+
+        function updateBalance() {
+            const income = parseFloat(incomeInput.value) || 0;
+            const expenses = parseFloat(expensesInput.value) || 0;
+            const savings = parseFloat(savingsInput.value) || 0;
+
+            const balance = income - expenses - savings;
+            const remainingBalance = income - expenses;
+
+            summaryDisplay.innerHTML = `
+                <p>Ingresos: €${income.toFixed(2)}</p>
+                <p>Gastos: €${expenses.toFixed(2)}</p>
+                <p>Ahorros para viaje: €${savings.toFixed(2)}</p>
+                <p>Balance después de gastos: <strong style="color: ${remainingBalance >= 0 ? 'green' : 'red'}">€${remainingBalance.toFixed(2)}</strong></p>
+                <p>Balance final: <strong style="color: ${balance >= 0 ? 'green' : 'red'}">€${balance.toFixed(2)}</strong></p>
+            `;
+        }
+
+        incomeInput.addEventListener('input', updateBalance);
+        expensesInput.addEventListener('input', updateBalance);
+        savingsInput.addEventListener('input', updateBalance);
+
+        // Inicialización
+        updateBalance();
+    </script>
+</body>
+</html>
